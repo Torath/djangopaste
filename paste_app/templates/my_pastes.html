@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block body_block %}
+
+<style>
+/* Main content */
+.main {
+    display: inline-block;
+ padding: 16px;
+    width: 500px;
+ margin-top: auto; /* Add a top margin to avoid content overlay */
+ margin-left: auto;
+ margin-right: auto;
+}
+ .wrapper{
+  background-color: #9bedff;
+  text-align: center;
+}
+</style>
+<div class="wrapper">
+<article class="main">
+    {% for e in query %}
+        {% if not e.content == 'deleted' %}
+        <tr>
+    <th> {{e.id}} </th>
+    <th> <a href="{{get_absolute_url}}/p/{{e.url}}">{{e.content|truncatechars:20}}</a></th>
+    <th>
+        <form action="/delete/" method="post">
+            {% csrf_token %}
+            <button type="submit" name="submit" value="{{ e.url }}">Usuń</button>
+        </form>
+    </th>
+        </tr>
+        <hr>
+        {% endif %}
+    {% endfor %}
+</article>
+</div>
+
+{% endblock %}

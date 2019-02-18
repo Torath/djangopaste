@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block body_block %}
+
+<style>
+/* Main content */
+.main {
+    display: inline-block;
+ padding: 16px;
+ margin-top: auto; /* Add a top margin to avoid content overlay */
+ margin-left: auto;
+ margin-right: auto;
+}
+ .wrapper{
+  background-color: rgba(100, 177, 157, 0.65);
+  text-align: center;
+  -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+textarea {
+    text-align:center;
+    height: 40em;
+    width: 50em;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.checkbox{
+    transform: scale(1.5);
+
+}
+
+</style>
+<script type="text/javascript">
+        function link() {
+            let copyText = document.getElementById("pasteText");
+            copyText.select();
+            document.execCommand("copy");
+        }
+
+</script>
+<div class="wrapper">
+<article class="main">
+    {% if previous %}
+        <h2>Link do twojego tekstu:</h2>
+        <textarea id="pasteText" name="paste">{{previous}}</textarea>
+        <br>
+        <button onclick="link()">Kopiuj do schowka</button>
+    {% else %}
+    <form name="pastebin" method="post">
+        {% csrf_token %}
+        <textarea name="paste"></textarea>
+        <br />
+        <tr>
+            <th>
+                <button class="button" type="submit" style="vertical-align:middle"><span>Zapisz</span></button>
+            </th>
+            <th > <div class="checkbox">
+                <input  type="checkbox" name="deleteCheckbox">Usuń po odczytaniu<br>
+            </div></th>
+        </tr>
+    </form>
+    {% endif %}
+</article>
+</div>
+
+{% endblock %}

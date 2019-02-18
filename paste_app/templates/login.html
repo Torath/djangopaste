@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<style>
+/* Main content */
+.main {
+    display: inline-block;
+ padding: 16px;
+ margin-top: auto; /* Add a top margin to avoid content overlay */
+ margin-left: auto;
+ margin-right: auto;
+}
+ .wrapper{
+  background-color: #6adad3;
+  text-align: center;
+  -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+textarea {
+    text-align:center;
+    height: 40em;
+    width: 50em;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+</style>
+  <div class="wrapper">
+    <div class="jumbotron">
+      <h1>Zaloguj się :</h1>
+
+<form method="post" action="{% url 'paste:user_login' %}">
+          {% csrf_token %}
+          {# A more "HTML" way of creating the login form#}
+          <label for="username">Login:</label>
+          <input type="text" name="username" placeholder="Username">
+
+<label for="password">Hasło:</label>
+          <input type="password" name="password" placeholder="Password">
+
+<input class="button" type="submit" name="" value="Login">
+
+</form>
+
+</div>
+  </div>
+{% endblock %}
